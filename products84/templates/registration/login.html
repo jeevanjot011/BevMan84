@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login – BevMan84</title>
+    <style>
+        body {font-family: Arial, sans-serif; max-width: 400px; margin: 100px auto; padding: 30px; background: #f8f9fa;}
+        input, button {width: 100%; padding: 12px; margin: 10px 0; box-sizing: border-box;}
+        button {background: #0d6efd; color: white; border: none; font-size: 16px; cursor: pointer;}
+        a {color: #0d6efd;}
+    </style>
+</head>
+<body>
+
+<h2>Login to BevMan84</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+
+<p style="text-align:center; margin-top:25px;">
+    Don't have an account? <a href="/register/">Register here →</a>
+</p>
+
+<p><a href="/">&larr; Back to home</a></p>
+
+</body>
+</html>
