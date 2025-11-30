@@ -17,7 +17,8 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     ordered_at = models.DateTimeField(auto_now_add=True)
     delivery_distance_km = models.FloatField(null=True, blank=True)
-
+    User.add_to_class('area_code', models.CharField(max_length=5, blank=True))
+    
     def save(self, *args, **kwargs):
         # Use your own library when saving the order
         if not self.delivery_distance_km:

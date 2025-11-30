@@ -3,15 +3,16 @@
 <head><title>BevMan84</title></head>
 <body style="font-family:Arial; margin:40px;">
     {% if messages %}
-    <div style="background:#d4edda; color:#155724; padding:15px; margin:20px 0; border:1px solid #c3e6cb; border-radius:8px; font-size:18px; text-align:center; font-weight:bold;">
-        {% for message in messages %}
+    {% for message in messages %}
+        <div style="background: #d4edda; color: #155724; padding: 15px; margin: 20px 0; border: 1px solid #c3e6cb; border-radius: 5px; position: relative;">
             {{ message }}
+            <span style="position: absolute; top: 5px; right: 10px; cursor: pointer; font-weight: bold;" onclick="this.parentElement.style.display='none';">×</span>
+        </div>
         {% endfor %}
-    </div>
-{% endif %}
+    {% endif %}
 <h1>BevMan84 - Premium Beverages</h1>
 {% if user.is_authenticated %}
-    <p>Hello <strong>{{ user.username }}</strong> | <a href="/logout/">Logout</a></p>
+    <p>Hello <strong>{{ user.username }}</strong> | <a href="/my-orders/">My Orders</a> | <a href="/logout/">Logout</a></p>
 {% else %}
     <p><a href="/login/">Login</a> | <a href="/register/">Register</a></p>
 {% endif %}

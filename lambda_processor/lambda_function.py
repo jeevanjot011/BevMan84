@@ -5,9 +5,6 @@ from datetime import datetime
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('BevMan84-Orders')
 
-sns = boto3.client('sns')
-TOPIC_ARN = "arn:aws:sns:us-east-1:YOUR_ACCOUNT_ID:BevMan84-Notifications"
-
 def lambda_handler(event, context):
     for record in event['Records']:
         body = json.loads(record['body'])
@@ -15,14 +12,14 @@ def lambda_handler(event, context):
             'order_id': str(body['order_id']),
             'username': body['username'],
             'product': body['product'],
+            'area_code': body.get('area_code', 'unknown'),
+            'delivery_date': str(body['delivery_date']),
             'distance_km': str(body['distance']),
-            'timestamp': datetime.utcnow().isoformat()
+            'transport': str(body['transport_suggestion']),
+            'collect_message': body.get('collect_message', '')
         }
+
         table.put_item(Item=order)
 
-        sns.publish(
-            TopicArn=TOPIC_ARN,
-            Message=f"New Order #{order['order_id']} from {order['username']}: {order['product']} ({order['distance_km']}km)",
-            Subject="BevMan84 Order"
-        )
+       
     return {'statusCode': 200}
